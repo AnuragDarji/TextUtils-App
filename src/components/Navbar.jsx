@@ -1,63 +1,70 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <a className="navbar-brand" href="#">
-      {props.title}
-    </a>
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary"
+      data-bs-theme={props.mode}
     >
-      <span className="navbar-toggler-icon" />
-    </button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
-          <a className="nav-link" href="#">
-            Home <span className="sr-only">(current)</span>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            {props.aboutTitle}
-          </a>
-        </li>
-      </ul>
-      <form className="form-inline my-2 my-lg-0">
-        <input
-          className="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          {props.title}
+        </Link>
         <button
-          className="btn btn-outline-success my-2 my-sm-0"
-          type="submit"
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          Search
+          <span className="navbar-toggler-icon" />
         </button>
-      </form>
-    </div>
-  </nav>
-  )
-}
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                {props.aboutTitle}
+              </Link>
+            </li>
+          </ul>
+          <div className="form-check form-switch">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              onClick={props.toggleMode}
+            />
+            <label
+              className={`form-check-label text-${props.mode === "light" ? "dark" : "light"}`}
+              htmlFor="flexSwitchCheckDefault"
+            >
+              Enable Dark Mode
+            </label>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
 
 Navbar.propTypes = {
-    title: PropTypes.string.isRequired,
-    aboutTitle: PropTypes.string
-}
+  title: PropTypes.string.isRequired,
+  aboutTitle: PropTypes.string,
+};
 
 Navbar.defaultProps = {
-    title: "set title here",
-    aboutTitle: "about text here"
-}
+  title: "set title here",
+  aboutTitle: "about text here",
+};
